@@ -1,15 +1,26 @@
+html {
+  font-size: clamp(10px, calc(10px + (100vw - 595px) * 0.00876), 16px);
+}
+
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
 .cv-container {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(33, 1fr);    /* строки 3–14 */
+    padding: 3.56% 3.36%;
     gap: 20px;
   }
 
   .cv-container > * {
     border-radius: 12px;
+    padding: 2.017vw;
   }
-
-
 
 
 
@@ -30,24 +41,93 @@
 
 
 
-  .greeting {
-    grid-column: 4 / 7;
-    grid-row: 1 / 7;
-    background-color: #add8e6; /* Светло-голубой */
-    aspect-ratio: 1/1;
+.greeting {
+  grid-column: 4 / 7;
+  grid-row: 1 / 7;
+  background-color: red;
+  aspect-ratio: 1/1;
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-start; */
+  /* padding-left: 19.35%;
+  padding-right: 19.35%; */
+  /* padding: 10px; */
+  /* font-size: 10px; */
+  /* padding-top: 20%;
+  padding-bottom: 20%; */
 }
+
+.greeting .greeting-title {
+  font-size: 1rem;
+  overflow-wrap: break-word;
+  margin-bottom: auto; 
+}
+
+.greeting .greeting-subtitle:first-of-type {
+  font-size: 1.4rem; 
+  overflow-wrap: break-word;
+}
+
+.greeting .greeting-subtitle:last-of-type {
+  font-size: 1.2rem; 
+  overflow-wrap: break-word;
+}
+
+
+
 
   .languages {
     grid-column: 7 / 13;
     grid-row: 1 / 7;
     background-color: #90ee90; /* Светло-зеленый */
+    display: flex;
+    flex-direction: column;
   }
+  .languages-title {
+    margin-bottom: auto;
+  }
+
+  .languages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   .tools {
     grid-column: 10 / 13; /* колонки 10–12 */
     grid-row:    7 / 22;   /* строка 2 */
     background-color: #ffffe0; /* Светло-желтый */
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   .experience{
     grid-column: 1 / 10; /* колонки 1–9 (можно подкорректировать) */
     grid-row:    7 / 22;  /* строка 2 */
@@ -57,6 +137,20 @@
     font-weight: bold; /* Bold title */
     margin-bottom: 1rem; /* Space below the title */
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   .job {
     grid-column: 0 / 9; /* колонки 10–12 */
@@ -80,12 +174,30 @@
     margin-top: 0.5rem; /* Space above job description */
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   .education {
     /* grid-area: 10 / 1 / 15 / 7; */
     grid-column: 1 / 6; /* колонки 1–9 (можно подкорректировать) */
     grid-row:    22 / 34;  /* строка 2 */
     background-color: #ffb6c1;
-    padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box;
   }
 
@@ -103,7 +215,7 @@
   .education-item {
     background: #fff;
     border-radius: 8px;
-    padding: 15px;
+    /* padding: 15px; */
     flex: 1; /* Три карточки равномерно заполняют строку */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
@@ -125,6 +237,19 @@
     font-size: 0.9rem;
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
   .contacts {
     grid-column: 6 / 13; /* колонки 1–9 (можно подкорректировать) */
     grid-row:    30 / 34;  /* строка 2 */
@@ -136,7 +261,32 @@
     grid-row:    22 / 30;  /* строка 2 */
     background-color: #ffe4e1;
   }
-  @media (max-width: 768px) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  @media (max-width: 595px) {
     .cv-container {
       grid-template-columns: repeat(6, 1fr); /* 6 columns for tablet */
       grid-template-rows: auto; /* Automatic row heights */
@@ -154,7 +304,7 @@
       display: flex;
       flex-direction: column; /* Упорядочивает элементы по вертикали */
       justify-content: space-between; /* Распределяет пространство между элементами */
-      padding: 10px; /* Добавляет отступы */
+      /* padding: 10px; Добавляет отступы */
     }
 
     .greeting-title {
@@ -171,7 +321,7 @@
       grid-column: 7 / 13;
       grid-row: 1;
       background-color: #90ee90;
-      padding: 10px; /* Add padding for better spacing */
+      /* padding: 10px; Add padding for better spacing */
     }
 
     .languages-title {
@@ -181,20 +331,29 @@
     }
 
     .languages-list {
-      list-style-type: none; /* Remove default list styling */
-      padding: 0; /* Remove padding */
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
     }
 
     .languages-list li {
       font-size: 1.125rem; /* Font size for list items */
       margin: 0.3125rem 0; /* Space between list items */
     }
+    
+
+
+
+
+
+
+
 
     .tools {
       grid-column: 10 / 13; /* или ваши колонки */
       grid-row: 2; /* или ваша строка */
       background-color: #ffffe0;
-      padding: 20px;
+      /* padding: 20px; */
     }
 
     /* Заголовок блока "Инструменты" */
@@ -217,7 +376,7 @@
       flex-direction: column;
       align-items: center;
       width: 80px; /* фиксированная ширина */
-      padding: 10px;
+      /* padding: 10px; */
       background: white;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
