@@ -13,19 +13,6 @@
   [contenteditable="true"]:focus {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25);
-    animation: focusGlow 0.3s ease-out;
-  }
-  
-  @keyframes focusGlow {
-    0% {
-      box-shadow: 0 0 0 rgba(0, 123, 255, 0.5);
-    }
-    50% {
-      box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
-    }
-    100% {
-      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25);
-    }
   }
   
   /* Material Wave (Ripple) эффект */
@@ -113,30 +100,10 @@
     z-index: 1001;
     font-size: 14px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    animation: slideIn 0.3s ease-out;
-  }
-  
-  @keyframes slideIn {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
   }
   
   /* Анимация при сохранении */
   .saving-animation {
-    animation: pulse 0.6s ease-in-out;
   }
   
-  @keyframes pulse {
-    0%, 100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.05);
-    }
-  }
+  /* Удалены автозапускающиеся анимации */

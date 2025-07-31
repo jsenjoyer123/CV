@@ -4,6 +4,8 @@
 (function() {
   'use strict';
 
+
+
   // Ждем загрузки панели управления
   function waitForControlPanel() {
     return new Promise((resolve) => {
@@ -16,6 +18,34 @@
       };
       checkPanel();
     });
+  }
+
+  async function generatePDF() {
+    try {
+      const { jsPDF } = window.jspdf;
+      // Устанавливаем crossOrigin для всех изображений
+      document.querySelectorAll('img').forEach(img => {
+        img.setAttribute('crossOrigin', 'anonymous');
+      });
+
+      // Захват с поддержкой CORS и игнорированием панели управления
+      const canvas = await html2canvas(document.body, {
+        useCORS: true,
+        ignoreElements: (element) => element.id === 'control-panel'
+      });
+
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save('page.pdf');
+    } catch (error) {
+      console.error('Ошибка при генерации PDF:', error);
+      if (typeof showNotification === 'function') {
+        showNotification('❌ Ошибка при генерации PDF', '#dc3545');
+      }
+    }
   }
 
   // Функция для интеграции с PDF
@@ -34,7 +64,7 @@
         }
 
         // Создаем модальное окно с инструкциями
-        showPDFModal();
+        generatePDF();
         
       } catch (error) {
         console.error('Ошибка при подготовке PDF:', error);

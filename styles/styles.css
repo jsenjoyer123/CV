@@ -29,15 +29,7 @@ ul, ol {
   100% { transform: scale(1); }
 }
 
-/* Применение анимаций */
-.avatar, .greeting-title, .greeting-subtitle {
-  animation: fadeIn 0.8s ease-out;
-}
-
-.language-item, .job, .education-item, .interests-list li {
-  animation: slideIn 0.5s ease-out forwards;
-  opacity: 0;
-}
+/* Удалены автозапускающиеся анимации */
 
 /* Задержка для элементов списка (чтобы появлялись по очереди) */
 .language-item:nth-child(1) { animation-delay: 0.1s; }

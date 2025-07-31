@@ -87,16 +87,15 @@
     #control-panel {
       width: 80%;
       max-width: 300px;
-      right: -100%;
+      right: 0;
+
       top: 10px;
       height: auto;
       border-radius: 15px 0 0 15px;
       z-index: 1000;
     }
 
-    #control-panel.open {
-      right: 0;
-    }
+
 
     .control-panel-toggle {
       left: -40px;
