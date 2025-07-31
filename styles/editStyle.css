@@ -44,7 +44,7 @@
   height: 60px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  border: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 15px 0 0 15px;
   cursor: pointer;
   font-size: 18px;
@@ -89,7 +89,7 @@
 
 .panel-button {
   color: white;
-  border: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 12px 20px;
   border-radius: 10px;
   cursor: pointer;

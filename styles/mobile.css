@@ -126,4 +126,10 @@
     margin-right: 5px;
     margin-bottom: 5px;
   }
+
+  /* Увеличение размера иконок в разделе Tools на мобильных устройствах */
+  .tool-icon {
+    width: 32px;
+    height: 32px;
+  }
 }

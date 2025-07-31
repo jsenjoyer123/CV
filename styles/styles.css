@@ -88,3 +88,16 @@ ol {
 /* .contact-email {
   animation: pulse 2s infinite;
 } */
+:root {
+  --base-gray-color: rgba(240, 240, 240, 1);
+  --base-white-color: rgba(255, 255, 255, 1);
+  --base-green-color: rgba(40, 217, 121, 1);
+  --text-light-color: rgba(92, 92, 92, 1);
+  --text-dark-grey-color: rgba(63, 61, 61, 1);
+  --text-dark-color: rgba(0, 0, 0, 1);
+  --yellow-color: rgba(221, 241, 99, 1);
+  --hashtag-green-color: rgba(20, 144, 99, 1);
+  --button-color: rgba(126, 115, 18, 0.4);
+  --hashtag-gray-color: rgba(235, 249, 242, 1);
+  --address-color: rgba(221, 221, 221, 1);
+}

@@ -22,7 +22,23 @@
 }
 
 .education-list > .education-item:first-child {
+  position: relative;
   background-color: #28d979;
+  color: #ffffff;
+}
+.education-list > .education-item:first-child::after {
+  content: "";
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  width: 11px;
+  height: 9.39px;
+  background-image: url("../img/heart.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.education-item .edu-dates:first-child {
   color: #ffffff;
 }
 

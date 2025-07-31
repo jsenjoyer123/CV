@@ -122,7 +122,7 @@ function addControlPanel() {
 
   // Создаем кнопку-стрелку для открытия/закрытия
   const toggleButton = document.createElement('button');
-  toggleButton.innerHTML = '◀';
+  toggleButton.innerHTML = '▶';
   toggleButton.className = 'control-panel-toggle';
 
   // Создаем заголовок панели
@@ -157,7 +157,7 @@ function addControlPanel() {
     isOpen = !isOpen;
     controlPanel.classList.toggle('open');
     toggleButton.classList.toggle('open');
-    toggleButton.innerHTML = isOpen ? '▶' : '◀';
+    toggleButton.innerHTML = isOpen ? '◀' : '▶';
   });
 
   // Эффект для кнопки-стрелки теперь в CSS
