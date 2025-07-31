@@ -82,4 +82,49 @@
     .education-list {
       flex-direction: column;
     }
+
+    /* Адаптивные стили для панели управления на мобильных устройствах */
+    #control-panel {
+      width: 80%;
+      max-width: 300px;
+      right: -100%;
+      top: 10px;
+      height: auto;
+      border-radius: 15px 0 0 15px;
+      z-index: 1000;
+    }
+
+    #control-panel.open {
+      right: 0;
+    }
+
+    .control-panel-toggle {
+      left: -40px;
+      height: 50px;
+      font-size: 16px;
+    }
+
+    .control-panel-content {
+      padding: 15px;
+      position: relative;
+    }
+
+    .control-panel-title {
+      font-size: 18px;
+    }
+
+    .panel-section {
+      margin-bottom: 15px;
+    }
+
+    .section-title {
+      font-size: 16px;
+    }
+
+    .panel-button {
+      padding: 8px 12px;
+      font-size: 14px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
   }
