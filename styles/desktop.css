@@ -1,0 +1,16 @@
+@media (min-width: 596px) {
+    .experience, .tools {
+      max-height: 359px ; /* Вы можете настроить это значение */
+    }
+    .cv-container {
+        grid-template-rows: clamp(124px, 20.84vw, 200px) auto repeat(12, calc(289px / 12));
+      }
+      .tool-icon {
+        width: 24px;
+        height: 24px;
+      }
+    
+      .tool-item {
+        flex-basis: calc(25% - 10px); /* 4 иконки в ряду */
+      }
+  }

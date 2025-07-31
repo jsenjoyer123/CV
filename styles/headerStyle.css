@@ -20,7 +20,7 @@
   .avatar {
     grid-column: 1 / 4;
     grid-row: 1;
-    background-image: url("profile.png"); /* Устанавливаем изображение */
+    background-image: url("../img/profile.png"); /* Устанавливаем изображение */
     background-size: cover; /* Заполняет блок изображением */
     background-position: center; /* Центрирует изображение */
     background-repeat: no-repeat; /* Не повторяет изображение */
