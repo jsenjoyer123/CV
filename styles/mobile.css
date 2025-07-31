@@ -1,129 +1,129 @@
 /* mobile.css */
 
 @media (max-width: 594px) {
-    .cv-container {
-        /* Меняем сетку на 2 колонки для мобильных устройств */
-        grid-template-columns: 1fr 1fr;
-        /* Каждая строка будет создаваться автоматически */
-        grid-template-rows: auto;
-        padding: 16px; /* Уменьшаем отступы для мобильных */
-        gap: 8px; /* Устанавливаем отступы между всеми элементами */
-      }
-    
-      /* Сбрасываем позиционирование для всех дочерних элементов */
-      .cv-container > * {
-        grid-column: auto;
-        grid-row: auto;
-        margin-bottom: 0;
-      }
-    
-      /* Располагаем аватар и приветствие в первой строке */
-      .avatar {
-        grid-column: 1 / 2;
-        grid-row: 1;
-      }
-    
-      .greeting {
-        grid-column: 2 / 3;
-        grid-row: 1;
-      }
-    
-      /* Все остальные прямые потомки .cv-container растягиваем на всю ширину */
-      .languages,
-      .experience,
-      .tools,
-      .main-content,
-      .jobs-container,
-      .education,
-      .interests,
-      .contacts {
-        grid-column: 1 / -1; /* Растягиваем на все колонки */
-      }
-    /* Заставляем основные секции выстраиваться в колонку */
-    .main-content,
-    .tools,
-    .jobs-container { /* Возможно, у вас другой класс для блока с работами */
-      flex-direction: column;
-      align-items: stretch; /* Растягиваем элементы на всю ширину */
-    }
-  
-    /* Блоки с инструментами располагаем в колонку */
-    .design-tools,
-    .creative-tools,
-    .productivity-tools {
-      flex-direction: column;
-      margin-right: 0;
-      margin-bottom: 20px; /* Добавляем отступ снизу */
-      width: 100%; /* Занимают всю ширину */
-    }
-  
-    /* Контейнер для аватара и приветствия */
-    .header-main { /* Предполагаю, что это ваш контейнер */
-      flex-direction: row; /* Остаются в строке */
-      align-items: center;
-    }
-  
-    /* Блоки с описанием работы тоже в колонку */
-    .job-main {
-        flex-direction: column;
-    }
-    
-    /* Добавляю стили для класса .tools, чтобы в мобильной версии сайта блоки располагались в столбик друг под другом */
-    .tools,
-    .tools > * {
-        flex-direction: column;
-    }
-    .no-code{
-        width: 100%;
-    }
-    .artoficial-intelligence{
-        width: 100%;
-    }
-    .education-list {
-      flex-direction: column;
-    }
-
-    /* Адаптивные стили для панели управления на мобильных устройствах */
-    #control-panel {
-      width: 80%;
-      max-width: 300px;
-      right: 0;
-
-      top: 10px;
-      height: auto;
-      border-radius: 15px 0 0 15px;
-      z-index: 1000;
-    }
-
-
-
-    .control-panel-toggle {
-      left: -40px;
-      height: 50px;
-      font-size: 16px;
-    }
-
-    .control-panel-content {
-      padding: 15px;
-      position: relative;
-    }
-
-    .control-panel-title {
-      font-size: 18px;
-    }
-
-    .panel-section {
-      margin-bottom: 15px;
-    }
-
-    .section-title {
-      font-size: 16px;
-    }
-
-    .panel-button {
-      padding: 8px 12px;
-      font-size: 14px;
-      margin-right: 5px;
-      margin-bottom: 5px;
-    }
+  .cv-container {
+    /* Меняем сетку на 2 колонки для мобильных устройств */
+    grid-template-columns: 1fr 1fr;
+    /* Каждая строка будет создаваться автоматически */
+    grid-template-rows: auto;
+    padding: 16px; /* Уменьшаем отступы для мобильных */
+    gap: 8px; /* Устанавливаем отступы между всеми элементами */
   }
+
+  /* Сбрасываем позиционирование для всех дочерних элементов */
+  .cv-container > * {
+    grid-column: auto;
+    grid-row: auto;
+    margin-bottom: 0;
+  }
+
+  /* Располагаем аватар и приветствие в первой строке */
+  .avatar {
+    grid-column: 1 / 2;
+    grid-row: 1;
+  }
+
+  .greeting {
+    grid-column: 2 / 3;
+    grid-row: 1;
+  }
+
+  /* Все остальные прямые потомки .cv-container растягиваем на всю ширину */
+  .languages,
+  .experience,
+  .tools,
+  .main-content,
+  .jobs-container,
+  .education,
+  .interests,
+  .contacts {
+    grid-column: 1 / -1; /* Растягиваем на все колонки */
+  }
+  /* Заставляем основные секции выстраиваться в колонку */
+  .main-content,
+  .tools,
+  .jobs-container {
+    /* Возможно, у вас другой класс для блока с работами */
+    flex-direction: column;
+    align-items: stretch; /* Растягиваем элементы на всю ширину */
+  }
+
+  /* Блоки с инструментами располагаем в колонку */
+  .design-tools,
+  .creative-tools,
+  .productivity-tools {
+    flex-direction: column;
+    margin-right: 0;
+    margin-bottom: 20px; /* Добавляем отступ снизу */
+    width: 100%; /* Занимают всю ширину */
+  }
+
+  /* Контейнер для аватара и приветствия */
+  .header-main {
+    /* Предполагаю, что это ваш контейнер */
+    flex-direction: row; /* Остаются в строке */
+    align-items: center;
+  }
+
+  /* Блоки с описанием работы тоже в колонку */
+  .job-main {
+    flex-direction: column;
+  }
+
+  /* Добавляю стили для класса .tools, чтобы в мобильной версии сайта блоки располагались в столбик друг под другом */
+  .tools,
+  .tools > * {
+    flex-direction: column;
+  }
+  .no-code {
+    width: 100%;
+  }
+  .artoficial-intelligence {
+    width: 100%;
+  }
+  .education-list {
+    flex-direction: column;
+  }
+
+  /* Адаптивные стили для панели управления на мобильных устройствах */
+  #control-panel {
+    width: 80%;
+    max-width: 300px;
+    right: -280px;
+
+    top: 10px;
+    height: auto;
+    border-radius: 15px 0 0 15px;
+    z-index: 1000;
+  }
+
+  .control-panel-toggle {
+    left: -40px;
+    height: 50px;
+    font-size: 16px;
+  }
+
+  .control-panel-content {
+    padding: 15px;
+    position: relative;
+  }
+
+  .control-panel-title {
+    font-size: 18px;
+  }
+
+  .panel-section {
+    margin-bottom: 15px;
+  }
+
+  .section-title {
+    font-size: 16px;
+  }
+
+  .panel-button {
+    padding: 8px 12px;
+    font-size: 14px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
+}

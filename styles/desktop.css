@@ -3,43 +3,47 @@
     --desk-row-height: clamp(24px, 2.5vw, 40px);
   }
 
-    .experience, .tools {
-      /* max-height: 359px ; Вы можете настроить это значение */
-    }
-    .education {
-      min-height: 289px;
-      min-height: 355px; /* Вы можете изменить это значение */
-    }
-    .contacts {
-      min-height: 100px; /* Вы можете изменить это значение */
-    }
-    .cv-container {
-      grid-template-rows: clamp(124px, 20.84vw, 200px) auto repeat(12, var(--desk-row-height));
-      /* max-width: 595px; */
-        margin: 0 auto;
-        /* Добавляем постоянный нижний отступ, чтобы сохранить пространство под контейнером */
-        padding-bottom: 40px; /* можно изменить значение при необходимости */
-      }
-      .tool-icon {
-        width: clamp(9px, 2.2vw, 24px);
-        height: clamp(9px, 2.2vw, 24px);
-      }
-    
-      .tool-item {
-        flex-basis: calc(50% - 12px); /* 2 иконки в ряду, просто крупнее */
-      }
-      .artoficial-intelligence{
-        width: 100%;
-      }
-      .design-tools,
-.no-code,
-.artoficial-intelligence {
+  .experience,
+  .tools {
+    /* max-height: 359px ; Вы можете настроить это значение */
+  }
+  .education {
+    min-height: 289px;
+    min-height: 355px; /* Вы можете изменить это значение */
+  }
+  .contacts {
+    min-height: 100px; /* Вы можете изменить это значение */
+  }
+  .cv-container {
+    grid-template-rows: clamp(124px, 20.84vw, 200px) auto repeat(
+        12,
+        var(--desk-row-height)
+      );
+    /* max-width: 595px; */
+    margin: 0 auto;
+    /* Добавляем постоянный нижний отступ, чтобы сохранить пространство под контейнером */
+    padding-bottom: 40px; /* можно изменить значение при необходимости */
+  }
+  .tool-icon {
+    width: clamp(9px, 2.2vw, 24px);
+    height: clamp(9px, 2.2vw, 24px);
+  }
+
+  .tool-item {
+    flex-basis: calc(50% - 12px); /* 2 иконки в ряду, просто крупнее */
+  }
+  .artoficial-intelligence {
+    width: 100%;
+  }
+  .design-tools,
+  .no-code,
+  .artoficial-intelligence {
     flex: 1 1 calc(50% - 12px); /* две карточки в строке одинаковой ширины */
     max-width: calc(50% - 12px); /* чтобы не растягивались больше */
-}
-.tools-list > .tools-row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center; /* выравнивание блоков по центру */
-       }
+  }
+  .tools-list > .tools-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* выравнивание блоков по центру */
+  }
 }

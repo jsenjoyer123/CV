@@ -1,125 +1,126 @@
 .education {
-    /* grid-area: 10 / 1 / 15 / 7; */
-    grid-column: 1 / 7; /* колонки 1–9 (можно подкорректировать) */
-    grid-row:    3 / 15;  /* строка 2 */
-    background-color: #ffb6c1;
-    /* padding: 20px; */
-    box-sizing: border-box;
-    background-color: #f0f0f0;
-  }
+  /* grid-area: 10 / 1 / 15 / 7; */
+  grid-column: 1 / 7; /* колонки 1–9 (можно подкорректировать) */
+  grid-row: 3 / 15; /* строка 2 */
+  background-color: #ffb6c1;
+  /* padding: 20px; */
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+}
 
-  .education-title {
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
+.education-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
 
-  .education-list {
-    justify-content: space-between; /* равномерно распределяем две карточки */
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; /* Расстояние между карточками */
-  }
+.education-list {
+  justify-content: space-between; /* равномерно распределяем две карточки */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Расстояние между карточками */
+}
 
-  .education-list > .education-item:first-child {
-    background-color: #28d979;
-  }
+.education-list > .education-item:first-child {
+  background-color: #28d979;
+  color: #ffffff;
+}
 
-  .education-item {
-    background: #fff;
-    border-radius: 8px;
-    padding: 8px;
-    flex: 0 0 calc(50% - 10px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-  }
+.education-item {
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px;
+  flex: 0 0 calc(50% - 10px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
 
-  .education-item h4 {
-    margin: 0 0 0.5rem;
-    font-size: 1rem;
-    font-weight: bold;
-  }
+.education-item h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
 
-  .education-item .edu-institution {
-    font-style: italic;
-    margin-bottom: 0.5rem;
-  }
+.education-item .edu-institution {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
 
-  .education-item .edu-dates {
-    color: gray;
-    font-size: 1rem;
-  }
+.education-item .edu-dates {
+  color: gray;
+  font-size: 1rem;
+}
 
-  .edu-hashtags{
-    font-size: 0.8rem;
-  }
+.edu-hashtags {
+  font-size: 0.8rem;
+}
 
-  .edu-institution {
-    font-size: 0.8rem;
-  }
+.edu-institution {
+  font-size: 0.8rem;
+}
 
-  .cv-container .ripple {
-    position: absolute;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.7);
-    transform: scale(0);
-    pointer-events: none;
-  }
+.cv-container .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.7);
+  transform: scale(0);
+  pointer-events: none;
+}
 
-  .cv-container .ripple-target {
-    position: relative;
-    overflow: hidden;
-  }
+.cv-container .ripple-target {
+  position: relative;
+  overflow: hidden;
+}
 
-  .contacts {
-    grid-column: 7 / 13; /* колонки 1–9 (можно подкорректировать) */
-    grid-row:    11 / 15;  /* строка 2 */
-    background-color: #000000;
-    color: #ffffff;
-  }
+.contacts {
+  grid-column: 7 / 13; /* колонки 1–9 (можно подкорректировать) */
+  grid-row: 11 / 15; /* строка 2 */
+  background-color: #000000;
+  color: #ffffff;
+}
 
-  .contact-text{
-    font-size: 1.4rem;
-    margin-top: 0;
-    padding-top: 0;
-  }
+.contact-text {
+  font-size: 1.4rem;
+  margin-top: 0;
+  padding-top: 0;
+}
 
-  .contact-email{
-    font-size: 1em;
-  }
+.contact-email {
+  font-size: 1em;
+}
 
-  .interests {
-    grid-column: 7 / 13; /* колонки 1–9 (можно подкорректировать) */
-    grid-row:    3 / 11;  /* строка 2 */
-    background-color: #f0f0f0;
-    margin-bottom: 8px;
-  }
+.interests {
+  grid-column: 7 / 13; /* колонки 1–9 (можно подкорректировать) */
+  grid-row: 3 / 11; /* строка 2 */
+  background-color: #f0f0f0;
+  margin-bottom: 8px;
+}
 
-  .interests-title{
-    font-size: 1.4rem;
-    margin-bottom: 8px;
-    gap: 10px;
-  }
+.interests-title {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+  gap: 10px;
+}
 
-  .interests-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+.interests-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 
-  .interests-list li {
-    flex: 0 0 auto; 
-    white-space: nowrap;
-    background-color: #ffffff;
-    border-radius: 40px;
-    /* padding: 4px 8px; */
-    padding: 2px 5px; 
-    /* font-size: 14px; */
-  }
+.interests-list li {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  background-color: #ffffff;
+  border-radius: 40px;
+  /* padding: 4px 8px; */
+  padding: 2px 5px;
+  /* font-size: 14px; */
+}
