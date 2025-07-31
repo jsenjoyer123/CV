@@ -1,9 +1,11 @@
 @media (min-width: 596px) {
     .experience, .tools {
-      max-height: 359px ; /* Вы можете настроить это значение */
+      /* max-height: 359px ; Вы можете настроить это значение */
     }
     .cv-container {
         grid-template-rows: clamp(124px, 20.84vw, 200px) auto repeat(12, calc(289px / 12));
+        /* max-width: 595px; */
+        margin: 0 auto;
       }
       .tool-icon {
         width: 24px;
@@ -11,6 +13,9 @@
       }
     
       .tool-item {
-        flex-basis: calc(25% - 10px); /* 4 иконки в ряду */
+        flex-basis: calc(50% - 12px); /* 2 иконки в ряду, просто крупнее */
+      }
+      .artoficial-intelligence{
+        width: 100%;
       }
   }

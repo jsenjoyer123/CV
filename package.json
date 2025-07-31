@@ -1,0 +1,18 @@
+{
+  "name": "cv-pdf-generator",
+  "version": "1.0.0",
+  "description": "Генератор PDF из CV с сохранением изменённых данных",
+  "main": "pdf-generator.js",
+  "scripts": {
+    "start": "node pdf-generator.js",
+    "dev": "node pdf-generator.js --dev"
+  },
+  "dependencies": {
+    "puppeteer": "^21.5.2",
+    "express": "^4.18.2",
+    "path": "^0.12.7"
+  },
+  "keywords": ["pdf", "cv", "puppeteer", "generator"],
+  "author": "",
+  "license": "MIT"
+}
