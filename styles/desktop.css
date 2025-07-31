@@ -21,8 +21,8 @@
         padding-bottom: 40px; /* можно изменить значение при необходимости */
       }
       .tool-icon {
-        width: 24px;
-        height: 24px;
+        width: clamp(9px, 2.2vw, 24px);
+        height: clamp(9px, 2.2vw, 24px);
       }
     
       .tool-item {
@@ -37,7 +37,9 @@
     flex: 1 1 calc(50% - 12px); /* две карточки в строке одинаковой ширины */
     max-width: calc(50% - 12px); /* чтобы не растягивались больше */
 }
-.tools > .tools-list > .tools-row {
+.tools-list > .tools-row {
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center; /* выравнивание блоков по центру */
        }
 }

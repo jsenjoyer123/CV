@@ -187,3 +187,8 @@
     width: 12px;
     height: 12px;
   }
+
+  /* Перекрасить первый блок .job в секции .experience */
+  .experience > .job:nth-child(2) {
+    background-color: #28d979;
+  }
