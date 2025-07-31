@@ -2,15 +2,17 @@
   grid-column: 10 / 13; /* колонки 10–12 */
   grid-row: 2; /* строка 2 */
   background-color: #f0f0f0; /* Светло-желтый */
-  padding: 20px;
+  /* padding: 20px; */
+  padding: 2.017vw;
   border-radius: 8px;
 }
 
 .tools-title {
   font-size: 1.4rem;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin: 0 auto 20px;
   color: #333;
+  text-align: center;
 }
 
 .tools-list {
@@ -66,6 +68,7 @@
   background-color: #ffffff; /* зеленый фон */
   border-radius: 12px;
   padding: 16px;
+  width: 100%;
 }
 
 /* Отступ между блоками */
@@ -73,7 +76,6 @@
   margin-bottom: 24px;
 }
 
-/* Titles for Tool Blocks */
 .design-tools,
 .no-code,
 .artoficial-intelligence {
@@ -110,21 +112,21 @@
 
 .experience {
   grid-column: 1 / 10; /* колонки 1–9 (можно подкорректировать) */
-  grid-row: 2; /* строка 2 */
+  grid-row: 2;
   background-color: #f0f0f0;
 }
 .experience-title {
-  font-size: 1.4rem; /* Title font size */
-  font-weight: bold; /* Bold title */
-  margin-bottom: 1rem; /* Space below the title */
+  font-size: 1.4rem; 
+  font-weight: bold; 
+  margin-bottom: 20px; 
 }
 
 .job {
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 1.5rem; /* Space between job entries */
+  /* gap: 8px; */
+  margin-bottom: 1.5rem;
   border-radius: 10px;
   padding: 8px;
 }
@@ -138,18 +140,16 @@
 .job-main {
   display: flex;
   align-items: flex-start;
-  /* gap: 8px; */ /* удалено, так как заменяем на margin-right в .job-info */
 }
 
 .job-info {
   display: flex;
   flex-direction: column;
   flex-basis: 35%;
-  /* margin-right: 8px; добавлено для создания отступа между job-info и job-duties */
 }
 
 .job-title {
-  font-weight: 1rem; /* Bold job title */
+  font-weight: 1rem; 
 }
 
 .job-type {
@@ -171,31 +171,26 @@
   height: 12px;
 }
 
-/* Перекрасить первый блок .job в секции .experience */
 .experience > .job:nth-child(2) {
   position: relative;
   background-color: #28d979;
   color: #ffffff;
 }
 
-/* Ensure all text inside first job is white */
 .experience > .job:nth-child(2),
 .experience > .job:nth-child(2) * {
   color: #ffffff;
 }
 
-/* Badge: most recent */
 .experience > .job:nth-child(2)::after {
   content: "most recent";
   position: absolute;
-  top: 8px;
+  top: 4px;
   right: 8px;
   background-color: #4ab050;
   color: #ddf163;
   font-size: 0.8rem;
-  /* font-weight: bold; */
   padding: 2px 6px;
   border-radius: 12px;
-  /* text-transform: uppercase; */
 }
 

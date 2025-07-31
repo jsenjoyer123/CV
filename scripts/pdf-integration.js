@@ -1,64 +1,128 @@
-// Интеграция с PDF генератором
-// Этот скрипт интегрируется с новой панелью управления
+/**
+ * МОДУЛЬ ИНТЕГРАЦИИ С PDF ГЕНЕРАТОРОМ
+ * 
+ * Этот скрипт реализует клиентскую генерацию PDF из HTML-содержимого CV.
+ * Основные возможности:
+ * - Клиентская генерация PDF с помощью html2canvas и jsPDF
+ * - Интеграция с панелью управления из edit.js
+ * - Исключение панели управления из генерируемого PDF
+ * - Поддержка CORS для изображений
+ * - Автоматическое разбиение на страницы
+ * - Экспорт данных в JSON формате
+ * - Модальное окно с инструкциями
+ * 
+ * Зависимости:
+ * - html2canvas: для преобразования HTML в canvas
+ * - jsPDF: для создания PDF файлов
+ * - edit.js: для доступа к панели управления и функциям сохранения
+ */
 
+// Используем IIFE (Immediately Invoked Function Expression) для инкапсуляции кода
+// Это предотвращает загрязнение глобального пространства имен
 (function() {
-  'use strict';
+  'use strict'; // Включаем строгий режим для лучшей обработки ошибок
 
+  // === ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ===
 
-
-  // Ждем загрузки панели управления
+  /**
+   * Асинхронно ожидает загрузки панели управления
+   * Необходимо потому, что edit.js может загрузиться позже чем pdf-integration.js
+   * @returns {Promise} Promise, который разрешается когда панель управления становится доступной
+   */
   function waitForControlPanel() {
     return new Promise((resolve) => {
+      // Рекурсивная функция проверки доступности панели
       const checkPanel = () => {
+        // Проверяем существование глобального объекта controlPanel и кнопки PDF
         if (window.controlPanel && window.controlPanel.pdfButton) {
-          resolve();
+          resolve(); // Панель готова, разрешаем Promise
         } else {
+          // Панель еще не готова, повторяем проверку через 100мс
           setTimeout(checkPanel, 100);
         }
       };
-      checkPanel();
+      checkPanel(); // Запускаем первую проверку
     });
   }
 
+  /**
+   * Основная функция генерации PDF из HTML содержимого страницы
+   * Использует html2canvas для создания изображения страницы и jsPDF для создания PDF файла
+   * Автоматически исключает панель управления из генерируемого PDF
+   * Поддерживает автоматическое разбиение на страницы для длинного контента
+   */
   async function generatePDF() {
     try {
+      // Получаем объект jsPDF из глобального пространства имен
       const { jsPDF } = window.jspdf;
-      // Устанавливаем crossOrigin для всех изображений
+      
+      // === ПОДГОТОВКА ИЗОБРАЖЕНИЙ ДЛЯ CORS ===
+      // Устанавливаем атрибут crossOrigin для всех изображений на странице
+      // Это необходимо для корректной работы html2canvas с изображениями из других доменов
       document.querySelectorAll('img').forEach(img => {
         img.setAttribute('crossOrigin', 'anonymous');
       });
 
-      // Захват с поддержкой CORS и игнорированием панели управления
+      // === СОЗДАНИЕ CANVAS ИЗ HTML СОДЕРЖИМОГО ===
+      // Используем html2canvas для преобразования всего body в canvas
       const canvas = await html2canvas(document.body, {
-        useCORS: true,
+        useCORS: true, // Включаем поддержку CORS для изображений
+        // Исключаем панель управления из захвата - она не должна попадать в PDF
+        // Это ключевая особенность: панель остается видимой в интерфейсе, но не попадает в PDF
         ignoreElements: (element) => element.id === 'control-panel'
       });
 
+      // === ПОДГОТОВКА ДАННЫХ ДЛЯ PDF ===
+      // Преобразуем canvas в base64 изображение PNG
       const imgData = canvas.toDataURL('image/png');
+      
+      // Создаем новый PDF документ в портретной ориентации, размер A4, единицы измерения - миллиметры
       const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const imgWidth = pdfWidth;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      
+      // Получаем размеры страницы PDF
+      const pdfWidth = pdf.internal.pageSize.getWidth();   // Ширина страницы A4 в мм
+      const pageHeight = pdf.internal.pageSize.getHeight(); // Высота страницы A4 в мм
+      
+      // Вычисляем размеры изображения для размещения на PDF странице
+      const imgWidth = pdfWidth; // Изображение занимает всю ширину страницы
+      const imgHeight = (canvas.height * imgWidth) / canvas.width; // Пропорциональная высота
 
-      // Добавление первой страницы
-      let position = 0;
+      // === ДОБАВЛЕНИЕ ПЕРВОЙ СТРАНИЦЫ ===
+      let position = 0; // Начальная позиция изображения
+      // Добавляем изображение на первую страницу PDF
       pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
 
-      // Разбиение на страницы, если контент не помещается
+      // === АВТОМАТИЧЕСКОЕ РАЗБИЕНИЕ НА СТРАНИЦЫ ===
+      // Вычисляем оставшуюся высоту контента, которая не поместилась на первой странице
       let heightLeft = imgHeight - pageHeight;
+      
+      // Если контент не помещается на одной странице, создаем дополнительные страницы
       while (heightLeft > 0) {
+        // Смещаем позицию изображения вверх на высоту одной страницы
         position -= pageHeight;
+        
+        // Добавляем новую страницу в PDF
         pdf.addPage();
+        
+        // Добавляем то же изображение, но со смещением, чтобы показать следующую часть
         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        
+        // Уменьшаем оставшуюся высоту
         heightLeft -= pageHeight;
       }
 
+      // === СОХРАНЕНИЕ PDF ФАЙЛА ===
+      // Инициируем скачивание PDF файла с именем 'page.pdf'
       pdf.save('page.pdf');
+      
     } catch (error) {
+      // === ОБРАБОТКА ОШИБОК ===
+      // Логируем подробную информацию об ошибке в консоль для отладки
       console.error('Ошибка при генерации PDF:', error);
+      
+      // Показываем пользователю уведомление об ошибке, если функция доступна
       if (typeof showNotification === 'function') {
-        showNotification('❌ Ошибка при генерации PDF', '#dc3545');
+        showNotification('❌ Ошибка при генерации PDF', '#dc3545'); // Красный цвет для ошибки
       }
     }
   }
