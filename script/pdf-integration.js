@@ -1,252 +1,207 @@
 // Интеграция с PDF генератором
-// Этот скрипт добавляет кнопку "Скачать PDF" к существующему функционалу
+// Этот скрипт интегрируется с новой панелью управления
 
 (function() {
   'use strict';
 
-  // Функция для создания кнопки PDF
-  function addPDFButton() {
-    // Проверяем, есть ли уже кнопка
-    if (document.querySelector('.pdf-button')) {
-      return;
-    }
-
-    const pdfButton = document.createElement('button');
-    pdfButton.className = 'pdf-button control-button';
-    pdfButton.innerHTML = '📄 Скачать PDF';
-    pdfButton.title = 'Сохранить CV как PDF файл';
-
-    // Стили для кнопки
-    pdfButton.style.cssText = `
-      position: fixed;
-      top: 120px;
-      right: 20px;
-      z-index: 1000;
-      padding: 12px 20px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-      transition: all 0.3s ease;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    `;
-
-    // Эффекты при наведении
-    pdfButton.addEventListener('mouseenter', function() {
-      this.style.transform = 'translateY(-2px)';
-      this.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.4)';
+  // Ждем загрузки панели управления
+  function waitForControlPanel() {
+    return new Promise((resolve) => {
+      const checkPanel = () => {
+        if (window.controlPanel && window.controlPanel.pdfButton) {
+          resolve();
+        } else {
+          setTimeout(checkPanel, 100);
+        }
+      };
+      checkPanel();
     });
+  }
 
-    pdfButton.addEventListener('mouseleave', function() {
-      this.style.transform = 'translateY(0)';
-      this.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.3)';
-    });
-
-    // Обработчик клика
+  // Функция для интеграции с PDF
+  async function integratePDFFunction() {
+    await waitForControlPanel();
+    
+    const pdfButton = window.controlPanel.pdfButton;
+    
+    // Заменяем обработчик клика на PDF кнопке
+    pdfButton.onclick = null; // Удаляем старый обработчик
     pdfButton.addEventListener('click', async function() {
-      await generatePDF();
+      try {
+        // Сохраняем данные перед генерацией PDF
+        if (typeof saveToLocalStorage === 'function') {
+          saveToLocalStorage();
+        }
+
+        // Создаем модальное окно с инструкциями
+        showPDFModal();
+        
+      } catch (error) {
+        console.error('Ошибка при подготовке PDF:', error);
+        if (typeof showNotification === 'function') {
+          showNotification('❌ Ошибка при подготовке PDF', '#dc3545');
+        }
+      }
     });
 
-    document.body.appendChild(pdfButton);
+    console.log('PDF интеграция загружена и подключена к панели управления');
   }
 
-  // Функция генерации PDF
-  async function generatePDF() {
-    const button = document.querySelector('.pdf-button');
-    const originalText = button.innerHTML;
-    
-    try {
-      // Показываем индикатор загрузки
-      button.innerHTML = '⏳ Генерация PDF...';
-      button.disabled = true;
-      button.style.opacity = '0.7';
-
-      // Сохраняем текущие данные перед генерацией PDF
-      if (typeof saveToLocalStorage === 'function') {
-        saveToLocalStorage();
-        showNotification('Данные сохранены перед генерацией PDF', 'success');
-      }
-
-      // Экспортируем данные в JSON файл для Node.js скрипта
-      await exportDataForPDF();
-
-      // Показываем уведомление о том, что нужно запустить Node.js скрипт
-      showPDFInstructions();
-
-    } catch (error) {
-      console.error('Ошибка при подготовке к генерации PDF:', error);
-      showNotification('Ошибка при подготовке PDF', 'error');
-    } finally {
-      // Восстанавливаем кнопку
-      button.innerHTML = originalText;
-      button.disabled = false;
-      button.style.opacity = '1';
-    }
-  }
-
-  // Экспорт данных для PDF генератора
-  async function exportDataForPDF() {
-    const cvData = localStorage.getItem('cvData');
-    
-    if (cvData) {
-      // Создаём blob с данными
-      const dataBlob = new Blob([cvData], { type: 'application/json' });
-      const url = URL.createObjectURL(dataBlob);
-      
-      // Создаём ссылку для скачивания
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'saved-cv-data.json';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-      
-      console.log('📤 Данные экспортированы в saved-cv-data.json');
-    }
-  }
-
-  // Показ инструкций для генерации PDF
-  function showPDFInstructions() {
-    const modal = document.createElement('div');
-    modal.style.cssText = `
+  // Функция показа модального окна с инструкциями
+  function showPDFModal() {
+    // Создаем оверлей
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      z-index: 10000;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      backdrop-filter: blur(5px);
     `;
 
-    const content = document.createElement('div');
-    content.style.cssText = `
+    // Создаем модальное окно
+    const modal = document.createElement('div');
+    modal.style.cssText = `
       background: white;
+      border-radius: 15px;
       padding: 30px;
-      border-radius: 12px;
       max-width: 500px;
-      margin: 20px;
+      width: 90%;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      position: relative;
     `;
 
-    content.innerHTML = `
-      <h3 style="margin-top: 0; color: #333;">📄 Генерация PDF</h3>
-      <p style="color: #666; line-height: 1.6;">
-        Данные сохранены! Теперь выполните следующие шаги для генерации PDF:
-      </p>
-      <ol style="color: #555; line-height: 1.8; padding-left: 20px;">
-        <li>Откройте терминал в папке проекта</li>
-        <li>Установите зависимости: <code style="background: #f5f5f5; padding: 2px 6px; border-radius: 4px;">npm install</code></li>
-        <li>Запустите генератор: <code style="background: #f5f5f5; padding: 2px 6px; border-radius: 4px;">npm start</code></li>
-      </ol>
-      <p style="color: #666; font-size: 14px; margin-bottom: 20px;">
-        PDF файл будет сохранён в папке проекта с именем <strong>cv-YYYY-MM-DD.pdf</strong>
-      </p>
-      <button id="closeModal" style="
-        background: #667eea;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-      ">Понятно</button>
+    modal.innerHTML = `
+      <div style="font-size: 48px; margin-bottom: 20px;">📄</div>
+      <h2 style="color: #333; margin-bottom: 20px; font-size: 24px;">Генерация PDF</h2>
+      <div style="color: #666; line-height: 1.6; margin-bottom: 25px; text-align: left;">
+        <p><strong>Для создания PDF файла:</strong></p>
+        <ol style="padding-left: 20px;">
+          <li>Откройте терминал в папке проекта</li>
+          <li>Выполните команду: <code style="background: #f5f5f5; padding: 2px 6px; border-radius: 4px;">npm install</code></li>
+          <li>Запустите генератор: <code style="background: #f5f5f5; padding: 2px 6px; border-radius: 4px;">npm start</code></li>
+          <li>PDF файл будет сохранен в папку проекта</li>
+        </ol>
+        <p style="margin-top: 15px;"><strong>💡 Совет:</strong> Все ваши изменения уже сохранены и будут включены в PDF!</p>
+      </div>
+      <div style="display: flex; gap: 15px; justify-content: center;">
+        <button id="export-data-btn" style="
+          background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+          color: white;
+          border: none;
+          padding: 12px 24px;
+          border-radius: 8px;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 500;
+          transition: all 0.3s ease;
+        ">💾 Экспорт данных</button>
+        <button id="close-modal-btn" style="
+          background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+          color: white;
+          border: none;
+          padding: 12px 24px;
+          border-radius: 8px;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 500;
+          transition: all 0.3s ease;
+        ">Закрыть</button>
+      </div>
     `;
 
-    modal.appendChild(content);
-    document.body.appendChild(modal);
+    // Добавляем эффекты для кнопок
+    const buttons = modal.querySelectorAll('button');
+    buttons.forEach(button => {
+      button.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-2px)';
+        this.style.filter = 'brightness(1.1)';
+      });
 
-    // Закрытие модального окна
-    const closeBtn = content.querySelector('#closeModal');
-    const closeModal = () => {
-      document.body.removeChild(modal);
-    };
-
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
+      button.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+        this.style.filter = 'brightness(1)';
+      });
     });
 
-    // Закрытие по Escape
-    const handleEscape = (e) => {
-      if (e.key === 'Escape') {
-        closeModal();
-        document.removeEventListener('keydown', handleEscape);
+    // Обработчик экспорта данных
+    modal.querySelector('#export-data-btn').addEventListener('click', function() {
+      exportCVData();
+      if (typeof showNotification === 'function') {
+        showNotification('💾 Данные экспортированы в файл cv-data.json', '#28a745');
       }
-    };
-    document.addEventListener('keydown', handleEscape);
-  }
+    });
 
-  // Функция для показа уведомлений (если не существует)
-  function showNotification(message, type = 'info') {
-    // Проверяем, есть ли уже функция showNotification
-    if (window.showNotification && typeof window.showNotification === 'function') {
-      window.showNotification(message, type);
-      return;
-    }
+    // Обработчик закрытия
+    modal.querySelector('#close-modal-btn').addEventListener('click', function() {
+      document.body.removeChild(overlay);
+    });
 
-    // Создаём простое уведомление
-    const notification = document.createElement('div');
-    notification.style.cssText = `
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 10000;
-      padding: 15px 20px;
-      border-radius: 8px;
-      color: white;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      font-size: 14px;
-      max-width: 300px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-    `;
+    // Закрытие по клику на оверлей
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) {
+        document.body.removeChild(overlay);
+      }
+    });
 
-    // Цвета в зависимости от типа
-    const colors = {
-      success: '#4CAF50',
-      error: '#f44336',
-      info: '#2196F3'
-    };
-
-    notification.style.background = colors[type] || colors.info;
-    notification.textContent = message;
-
-    document.body.appendChild(notification);
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
 
     // Анимация появления
+    overlay.style.opacity = '0';
+    modal.style.transform = 'scale(0.8)';
     setTimeout(() => {
-      notification.style.transform = 'translateX(0)';
-    }, 100);
-
-    // Автоматическое скрытие
-    setTimeout(() => {
-      notification.style.transform = 'translateX(100%)';
-      setTimeout(() => {
-        if (notification.parentNode) {
-          document.body.removeChild(notification);
-        }
-      }, 300);
-    }, 3000);
+      overlay.style.transition = 'opacity 0.3s ease';
+      modal.style.transition = 'transform 0.3s ease';
+      overlay.style.opacity = '1';
+      modal.style.transform = 'scale(1)';
+    }, 10);
   }
 
-  // Инициализация при загрузке страницы
-  document.addEventListener('DOMContentLoaded', function() {
-    // Добавляем кнопку PDF после небольшой задержки
-    setTimeout(addPDFButton, 500);
-  });
+  // Функция экспорта данных CV
+  function exportCVData() {
+    try {
+      // Получаем данные из localStorage
+      const cvData = localStorage.getItem('cvData');
+      const dataToExport = {
+        timestamp: new Date().toISOString(),
+        data: cvData ? JSON.parse(cvData) : {},
+        version: '1.0'
+      };
 
-  // Экспорт функций для глобального использования
-  window.generatePDF = generatePDF;
-  window.exportDataForPDF = exportDataForPDF;
+      // Создаем и скачиваем файл
+      const blob = new Blob([JSON.stringify(dataToExport, null, 2)], {
+        type: 'application/json'
+      });
+      
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'cv-data.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      console.log('CV данные экспортированы:', dataToExport);
+    } catch (error) {
+      console.error('Ошибка при экспорте данных:', error);
+      if (typeof showNotification === 'function') {
+        showNotification('❌ Ошибка при экспорте данных', '#dc3545');
+      }
+    }
+  }
+
+  // Инициализация при загрузке DOM
+  document.addEventListener('DOMContentLoaded', function() {
+    integratePDFFunction();
+  });
 
 })();
