@@ -11,3 +11,51 @@ ul, ol {
   margin: 0;
   padding: 0;
 }
+
+/* Анимации */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Применение анимаций */
+.avatar, .greeting-title, .greeting-subtitle {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.language-item, .job, .education-item, .interests-list li {
+  animation: slideIn 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+/* Задержка для элементов списка (чтобы появлялись по очереди) */
+.language-item:nth-child(1) { animation-delay: 0.1s; }
+.language-item:nth-child(2) { animation-delay: 0.2s; }
+.language-item:nth-child(3) { animation-delay: 0.3s; }
+
+.job:nth-child(1) { animation-delay: 0.1s; }
+.job:nth-child(2) { animation-delay: 0.2s; }
+.job:nth-child(3) { animation-delay: 0.3s; }
+
+.education-item:nth-child(1) { animation-delay: 0.1s; }
+.education-item:nth-child(2) { animation-delay: 0.2s; }
+.education-item:nth-child(3) { animation-delay: 0.3s; }
+
+.interests-list li {
+  animation-delay: calc(0.05s * var(--i));
+}
+
+/* .contact-email {
+  animation: pulse 2s infinite;
+} */
