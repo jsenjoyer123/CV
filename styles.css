@@ -12,9 +12,10 @@ ul, ol {
 .cv-container {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(33, 1fr);    /* строки 3–14 */
+    grid-template-rows: clamp(124px, 20.84vw, 200px) clamp(359px, 60.33vw, 580px) repeat(12, calc(289px / 12));
     padding: 3.56% 3.36%;
-    gap: 20px;
+    column-gap: 8px;
+    row-gap: 0;
   }
 
   .cv-container > * {
@@ -22,39 +23,36 @@ ul, ol {
     padding: 2.017vw;
   }
 
-
+  .avatar, .greeting, .languages, .experience, .tools{
+    margin-bottom: 8px;
+  }
 
 
   .avatar {
     grid-column: 1 / 4;
-    grid-row: 1 / 7;
+    grid-row: 1;
     background-image: url("profile.png"); /* Устанавливаем изображение */
     background-size: cover; /* Заполняет блок изображением */
     background-position: center; /* Центрирует изображение */
     background-repeat: no-repeat; /* Не повторяет изображение */
-    aspect-ratio: 1/1;
+    /* aspect-ratio: 1/1; */
 }
 
 
 
-
-
-
-
+.avatar,
+.greeting,
+.languages {
+  /* height: 20.84vw; */
+}
 .greeting {
   grid-column: 4 / 7;
-  grid-row: 1 / 7;
-  background-color: red;
-  aspect-ratio: 1/1;
+  grid-row: 1;
+  background-color: #f0f0f0;
+  /* aspect-ratio: 1/1; */
   display: flex;
   flex-direction: column;
-  /* align-items: flex-start; */
-  /* padding-left: 19.35%;
-  padding-right: 19.35%; */
-  /* padding: 10px; */
-  /* font-size: 10px; */
-  /* padding-top: 20%;
-  padding-bottom: 20%; */
+
 }
 
 .greeting .greeting-title {
@@ -78,11 +76,14 @@ ul, ol {
 
   .languages {
     grid-column: 7 / 13;
-    grid-row: 1 / 7;
-    background-color: #90ee90; /* Светло-зеленый */
+    grid-row: 1;
+    background-color: #f0f0f0; /* Светло-зеленый */
     display: flex;
     flex-direction: column;
+    /* height: 120.05px !important; */
+    /* aspect-ratio: 267/124 */
   }
+
   .languages-title {
     margin-bottom: auto;
   }
@@ -93,7 +94,30 @@ ul, ol {
     gap: 10px;
   }
 
+  .language-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
+  .language-name {
+    min-width: 90px; /* prevents text overlap with bar */
+    font-weight: 500;
+  }
+
+  .progress {
+    flex: 1;
+    background-color: #e0e0e0;
+    height: 11px;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    background-color: #28D979;
+    height: 100%;
+    border-radius: 3px;
+  }
 
 
 
@@ -111,8 +135,112 @@ ul, ol {
 
   .tools {
     grid-column: 10 / 13; /* колонки 10–12 */
-    grid-row:    7 / 22;   /* строка 2 */
-    background-color: #ffffe0; /* Светло-желтый */
+    grid-row:    2;   /* строка 2 */
+    background-color: #f0f0f0; /* Светло-желтый */
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .tools-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  .tools-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tools-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-start;
+  }
+
+  .tool-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-basis: calc(50% - 6px);
+    /* padding: 10px; */
+    /* background-color: rgba(255, 255, 255, 0.7); */
+    /* border-radius: 6px; */
+    transition: transform 0.2s ease;
+  }
+
+  .tool-item:hover {
+    transform: translateY(-2px);
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  .tool-icon {
+    width: 14.76px;
+    height: 14.76px;
+    /* margin-bottom: 8px; */
+  }
+
+  /* Добавляем стили для блоков с иконками */
+  .design-tools {
+    background-color: #ffffff; /* голубой фон */
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .no-code {
+    background-color: #ffffff; /* розовый фон */
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .artoficial-intelligence {
+    background-color: #ffffff; /* зеленый фон */
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  /* Отступ между блоками */
+  .tools-section > div:not(:last-child) {
+    margin-bottom: 24px;
+  }
+
+  /* Titles for Tool Blocks */
+  .design-tools,
+  .no-code,
+  .artoficial-intelligence {
+    position: relative; /* Убираем margin-top */
+  }
+
+  .design-tools::before,
+  .no-code::before,
+  .artoficial-intelligence::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.5rem;
+    font-weight: bold;
+    color: #fff; /* Белый цвет текста */
+    background-color: #000; /* Черный фон */
+    border-radius: 59px; /* Скругление */
+    padding: 2px 10px; /* Небольшие отступы */
+  }
+
+  .design-tools::before {
+    content: "design";
+  }
+
+  .no-code::before {
+    content: "no-code";
+  }
+
+  .artoficial-intelligence::before {
+    content: "artoficial intelligence";
+    white-space: nowrap; /* Запрещаем перенос строки */
   }
 
 
@@ -128,50 +256,63 @@ ul, ol {
 
 
 
-  .experience{
+
+  .experience {
     grid-column: 1 / 10; /* колонки 1–9 (можно подкорректировать) */
-    grid-row:    7 / 22;  /* строка 2 */
+    grid-row:    2;  /* строка 2 */
+    background-color: #f0f0f0;
   }
   .experience-title {
-    font-size: 1.5rem; /* Title font size */
+    font-size: 1.4rem; /* Title font size */
     font-weight: bold; /* Bold title */
     margin-bottom: 1rem; /* Space below the title */
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
   .job {
-    grid-column: 0 / 9; /* колонки 10–12 */
-    grid-row:    7 / 22;   /* строка 2 */
-    margin-bottom: 1rem; /* Space between job entries */
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 1.5rem; /* Space between job entries */
+    border-radius: 10px;
+    padding: 8px;
   }
-
-  .job-title {
-    font-weight: bold; /* Bold job title */
-  }
-
-  .job-company {
-    font-style: italic; /* Italic company name */
-  }
-
+  
   .job-dates {
-    color: gray; /* Gray color for dates */
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #555;
   }
-
-  .job-description {
-    margin-top: 0.5rem; /* Space above job description */
+  
+  .job-main {
+    display: flex;
+    align-items: flex-start;
+    /* gap: 8px; */ /* удалено, так как заменяем на margin-right в .job-info */
+  }
+  
+  .job-info {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 35%; 
+    /* margin-right: 8px; добавлено для создания отступа между job-info и job-duties */
+  }
+  
+  .job-title {
+    font-weight: 1rem; /* Bold job title */
+  }
+  
+  .job-type {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: #777;
+    margin-top: 0.25rem;
+  }
+  
+  .job-duties {
+    font-size: 0.8rem;
+    flex: 1;
+    list-style: disc inside;
+    padding-left: 0;
   }
 
 
@@ -194,36 +335,47 @@ ul, ol {
 
   .education {
     /* grid-area: 10 / 1 / 15 / 7; */
-    grid-column: 1 / 6; /* колонки 1–9 (можно подкорректировать) */
-    grid-row:    22 / 34;  /* строка 2 */
+    grid-column: 1 / 7; /* колонки 1–9 (можно подкорректировать) */
+    grid-row:    3 / 15;  /* строка 2 */
     background-color: #ffb6c1;
     /* padding: 20px; */
     box-sizing: border-box;
+    background-color: #f0f0f0;
   }
 
   .education-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: bold;
     margin-bottom: 1rem;
   }
 
   .education-list {
+    justify-content: space-between; /* равномерно распределяем две карточки */
     display: flex;
+    flex-wrap: wrap;
     gap: 20px; /* Расстояние между карточками */
+  }
+
+  .education-list > .education-item:first-child {
+    background-color: #28d979;
   }
 
   .education-item {
     background: #fff;
     border-radius: 8px;
-    /* padding: 15px; */
-    flex: 1; /* Три карточки равномерно заполняют строку */
+    padding: 8px;
+    flex: 0 0 calc(50% - 10px);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
   }
 
   .education-item h4 {
     margin: 0 0 0.5rem;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: bold;
   }
 
@@ -234,13 +386,16 @@ ul, ol {
 
   .education-item .edu-dates {
     color: gray;
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
+  .edu-hashtags{
+    font-size: 0.8rem;
+  }
 
-
-
-
+  .edu-institution {
+    font-size: 0.8rem;
+  }
 
 
 
@@ -251,20 +406,57 @@ ul, ol {
 
 
   .contacts {
-    grid-column: 6 / 13; /* колонки 1–9 (можно подкорректировать) */
-    grid-row:    30 / 34;  /* строка 2 */
-    background-color: #ffebcd;
+    grid-column: 7 / 13; /* колонки 1–9 (можно подкорректировать) */
+    grid-row:    11 / 15;  /* строка 2 */
+    background-color: #000000;
+    color: #ffffff;
   }
+
+  .contact-text{
+    font-size: 1.4rem;
+  }
+
+  .contact-email{
+    font-size: 1em;
+  }
+
+
+
+
+
+
+
 
   .interests {
-    grid-column: 6 / 13; /* колонки 1–9 (можно подкорректировать) */
-    grid-row:    22 / 30;  /* строка 2 */
-    background-color: #ffe4e1;
+    grid-column: 7 / 13; /* колонки 1–9 (можно подкорректировать) */
+    grid-row:    3 / 10;  /* строка 2 */
+    background-color: #f0f0f0;
   }
 
+  .interests-title{
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    gap: 10px;
+  }
 
+.interests-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 
-
+.interests-list li {
+  flex: 0 0 auto; 
+  white-space: nowrap;
+  background-color: #ffffff;
+  border-radius: 40px;
+  /* padding: 4px 8px; */
+  padding: 2px 5px; 
+  font-size: 14px;
+}
 
 
 
@@ -287,132 +479,5 @@ ul, ol {
 
 
   @media (max-width: 595px) {
-    .cv-container {
-      grid-template-columns: repeat(6, 1fr); /* 6 columns for tablet */
-      grid-template-rows: auto; /* Automatic row heights */
-    }
-
-    .avatar {
-      grid-column: 1 / 4; /* Columns 1-3 */
-      grid-row: 1; /* Row 1 */
-    }
-
-    .greeting {
-      grid-column: 4 / 7; /* Занимает колонки 4-6 */
-      grid-row: 1; /* Занимает строку 1 */
-      background-color: #add8e6; /* Светло-голубой */
-      display: flex;
-      flex-direction: column; /* Упорядочивает элементы по вертикали */
-      justify-content: space-between; /* Распределяет пространство между элементами */
-      /* padding: 10px; Добавляет отступы */
-    }
-
-    .greeting-title {
-      font-size: 24px; /* Размер шрифта для заголовка */
-      font-weight: bold; /* Жирный шрифт */
-    }
-
-    .greeting-subtitle {
-      font-size: 18px; /* Размер шрифта для подзаголовков */
-      margin-top: 5px; /* Отступ сверху для подзаголовков */
-    }
-
-    .languages {
-      grid-column: 7 / 13;
-      grid-row: 1;
-      background-color: #90ee90;
-      /* padding: 10px; Add padding for better spacing */
-    }
-
-    .languages-title {
-      font-size: 1.5rem; /* Title font size */
-      font-weight: bold; /* Bold title */
-      margin-bottom: 0.625rem; /* Space below the title */
-    }
-
-    .languages-list {
-      display: flex;
-      flex-direction: column;
-      gap: 17px;
-    }
-
-    .languages-list li {
-      font-size: 1.125rem; /* Font size for list items */
-      margin: 0.3125rem 0; /* Space between list items */
-    }
-    
-
-
-
-
-
-
-
-
-    .tools {
-      grid-column: 10 / 13; /* или ваши колонки */
-      grid-row: 2; /* или ваша строка */
-      background-color: #ffffe0;
-      /* padding: 20px; */
-    }
-
-    /* Заголовок блока "Инструменты" */
-    .tools-title {
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-    }
-
-    /* Контейнер для списка инструментов */
-    .tools-list {
-      display: flex;
-      justify-content: space-between; /* равномерно распределяет три элемента */
-      gap: 20px; /* дополнительный отступ между ними */
-    }
-
-    /* Стили для каждой карточки-инструмента */
-    .tool-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 80px; /* фиксированная ширина */
-      /* padding: 10px; */
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Стили иконок */
-    .tool-item i {
-      font-size: 2rem;
-      color: #333;
-      margin-bottom: 8px;
-    }
-
-    /* Подписи под иконками */
-    .tool-item span {
-      font-size: 0.9rem;
-      text-align: center;
-      color: #333;
-    }
-
-    .experience {
-      grid-column: 1 / 7; /* Columns 1-6 */
-      grid-row: 4; /* Row 4 */
-    }
-
-    .education {
-      grid-column: 1 / 7; /* Columns 1-6 */
-      grid-row: 5; /* Row 5 */
-    }
-
-    .contacts {
-      grid-column: 1 / 7;
-      grid-row: 7; /* было 6 */
-    }
-
-    .interests {
-      grid-column: 1 / 7;
-      grid-row: 6; /* было 7 */
-    }
+   
   }
