@@ -54,6 +54,11 @@
 .greeting .greeting-subtitle:first-of-type {
   font-size: 1.4rem; 
   overflow-wrap: break-word;
+  font-weight: 700; /* Добавлено для усиления жирности */
+}
+
+.greeting .greeting-subtitle:nth-child(3) {
+  color: #5c5c5c;
 }
 
 .greeting .greeting-subtitle:last-of-type {
